@@ -20,6 +20,11 @@ pub mod merkle_tree {
     pub fn insert_leaf(ctx: Context<InsertLeaf>, leaf: [u8; 32]) -> Result<()> {
         let merkle_tree = &mut ctx.accounts.merkle_tree;
 
+        // Check if the number of leaves exceeds the maximum limit
+        if merkle_tree.leaves.len() >= MerkleTree::MAX_LEAVES {
+            return Err(error!(ErrorCode::MaxLeavesExceeded));
+        }
+
         // Add the new leaf to the list of leaves
         merkle_tree.leaves.push(leaf);
 
@@ -42,7 +47,7 @@ pub struct MerkleTree {
 }
 
 impl MerkleTree {
-    pub const MAX_LEAVES: usize = 1024; // Maximum number of leaves
+    pub const MAX_LEAVES: usize = 30; // Maximum number of leaves
     pub const LEN: usize = 8 + 32 + (4 + MerkleTree::MAX_LEAVES * 32); // Account size
 }
 
@@ -99,4 +104,10 @@ fn calculate_merkle_root(leaves: &Vec<[u8; 32]>) -> Result<[u8; 32]> {
     }
 
     Ok(current_level[0]) // Final hash is the root
+}
+
+#[error_code]
+pub enum ErrorCode {
+    #[msg("The maximum number of leaves has been exceeded.")]
+    MaxLeavesExceeded,
 }
