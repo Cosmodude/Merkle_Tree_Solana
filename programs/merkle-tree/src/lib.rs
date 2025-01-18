@@ -53,6 +53,8 @@ impl MerkleTree {
 pub struct Initialize<'info> {
     #[account(
         init,
+        seeds = [b"merkle-tree"],
+        bump,
         payer = signer,
         space = MerkleTree::LEN
     )]
