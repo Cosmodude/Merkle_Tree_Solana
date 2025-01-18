@@ -6,15 +6,17 @@ async function main() {
   const provider = anchor.AnchorProvider.env();
   anchor.setProvider(provider);
 
+  console.log("before deploy")
   const program = anchor.workspace.MerkleTree as anchor.Program;
-
+  console.log("after deploy")
   // Generate a PDA for the Merkle Tree account
   const [merkleTreePda, bump] = await PublicKey.findProgramAddressSync(
     [Buffer.from("merkle-tree")],
     program.programId
   );
 
-  console.log("Merkle Tree PDA:", merkleTreePda.toBase58());
+  console.log("Derived PDA for Merkle Tree:", merkleTreePda.toBase58());
+  
   console.log("Merkle Tree Bump:", bump);
   
   // Prepare transaction to initialize the Merkle Tree account
