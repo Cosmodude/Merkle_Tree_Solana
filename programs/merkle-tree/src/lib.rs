@@ -11,8 +11,8 @@ pub mod merkle_tree {
     /// Initialize the Merkle tree root account.
     pub fn initialize(ctx: Context<Initialize>) -> Result<()> {
         let merkle_tree = &mut ctx.accounts.merkle_tree;
-        merkle_tree.root = [0u8; 32]; // Initial empty root
-        merkle_tree.leaves = vec![]; // Start with no leaves
+        merkle_tree.root = [0u8; 32]; 
+        merkle_tree.leaves = vec![]; 
         Ok(())
     }
 
@@ -25,14 +25,11 @@ pub mod merkle_tree {
             return Err(error!(ErrorCode::MaxLeavesExceeded));
         }
 
-        // Add the new leaf to the list of leaves
         merkle_tree.leaves.push(leaf);
 
-        // Recalculate the Merkle root
         let new_root = calculate_merkle_root(&merkle_tree.leaves)?;
         merkle_tree.root = new_root;
 
-        // Log the updated root
         msg!("Updated Merkle Root: {:?}", new_root);
 
         Ok(())
@@ -42,13 +39,13 @@ pub mod merkle_tree {
 /// Account storing the Merkle tree state.
 #[account]
 pub struct MerkleTree {
-    pub root: [u8; 32],         // Current Merkle root hash
-    pub leaves: Vec<[u8; 32]>, // List of leaf hashes
+    pub root: [u8; 32],         
+    pub leaves: Vec<[u8; 32]>, 
 }
 
 impl MerkleTree {
-    pub const MAX_LEAVES: usize = 30; // Maximum number of leaves
-    pub const LEN: usize = 8 + 32 + (4 + MerkleTree::MAX_LEAVES * 32); // Account size
+    pub const MAX_LEAVES: usize = 30; 
+    pub const LEN: usize = 8 + 32 + (4 + MerkleTree::MAX_LEAVES * 32);
 }
 
 /// Context for initializing the Merkle tree root account.
@@ -103,7 +100,7 @@ fn calculate_merkle_root(leaves: &Vec<[u8; 32]>) -> Result<[u8; 32]> {
         current_level = next_level;
     }
 
-    Ok(current_level[0]) // Final hash is the root
+    Ok(current_level[0]) 
 }
 
 #[error_code]
