@@ -2,11 +2,13 @@
   "license": "ISC",
   "scripts": {
     "lint:fix": "prettier */*.js \"*/**/*{.js,.ts}\" -w",
-    "lint": "prettier */*.js \"*/**/*{.js,.ts}\" --check"
+    "lint": "prettier */*.js \"*/**/*{.js,.ts}\" --check",
+    "addLeaf": "ts-node scripts/addLeaf.ts"
   },
   "dependencies": {
     "@coral-xyz/anchor": "^0.29.0",
-    "@project-serum/anchor": "^0.26.0"
+    "@project-serum/anchor": "^0.26.0",
+    "dotenv": "^16.4.7"
   },
   "devDependencies": {
     "@types/bn.js": "^5.1.0",
