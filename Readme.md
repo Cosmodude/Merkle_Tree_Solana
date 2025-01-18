@@ -59,7 +59,7 @@ This instruction initializes a new Merkle tree account with an empty root and no
 check after here 
 #### Example:
 ```bash
-anchor run initialize
+anchor run init
 ```
 
 ---
@@ -72,7 +72,11 @@ Adds a new leaf to the Merkle tree and updates the root hash.
 
 #### Example:
 ```bash
-anchor run insert-leaf --leaf 0x1234abcd...
+anchor run addLeaf
+```
+or with args
+```bash
+anchor run addLeaf --leaf 0x1234abcd...
 ```
 
 ---
