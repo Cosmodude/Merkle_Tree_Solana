@@ -6,7 +6,6 @@ import * as dotenv from "dotenv";
 dotenv.config();
 
 async function addLeaf() {
-    console.log("start deploy")
   const provider = anchor.AnchorProvider.env(); 
   anchor.setProvider(provider);
 
@@ -28,7 +27,6 @@ async function addLeaf() {
   );
 
   try {
-    console.log("Inserting leaf...");
 
     // Sending the transaction to insert the leaf
     const tx = await program.methods
@@ -38,7 +36,7 @@ async function addLeaf() {
         signer: provider.wallet.publicKey, 
       })
       .rpc();
-
+32
     console.log("Leaf inserted successfully. Transaction:", tx);
   } catch (error) {
     console.error("Error inserting leaf:", error);
